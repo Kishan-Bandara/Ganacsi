@@ -1,0 +1,75 @@
+h1 {
+    font-family:  'Comfortaa', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+.container.srchbrOtr {
+    max-width: 50%;
+}
+
+
+/* test */
+
+/* Use this if you use icon added with HTML tag (example 4) */
+
+.form-group-icon {
+  position: relative;
+}
+
+.form-group-icon>input {
+  padding-left: 42px;
+}
+
+.form-group-icon>i {
+  position: absolute;
+  color: rgba(0, 0, 0, .54);
+  left: 0;
+  bottom: calc(0.375rem - 1px);
+}
+
+i.material-icons {
+  padding-left: 10px;
+  padding-right: 30px;
+}
+
+.form-group-icon-choose {
+  position: relative;
+}
+
+.form-group-icon-choose>input {
+  padding-left: 42px;
+}
+
+.form-group-icon-choose>i {
+  position: absolute;
+  color: rgba(0, 0, 0, .54);
+  left: 0;
+  bottom: calc(0.375rem - 1px);
+}
+
+
+/* Use this if you append icon added with HTML tag (example 5) */
+.form-icon-append {
+  position: relative;
+}
+
+.form-icon-append>input {
+  padding-right: 32px;
+}
+
+.form-icon-append>i {
+  position: absolute;
+  color: rgba(0, 0, 0, .54);
+  right: 0;
+  bottom: calc(0.375rem - 1px);
+}
+.form-icon-append>i:hover {
+  cursor: pointer;
+}
+
+/* button height */
+
+button.btn.btn-primary {
+  height: fit-content;
+}
