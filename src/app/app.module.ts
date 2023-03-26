@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './System/footer/footer.component';
 import { VehiclePublishComponent } from './components/vehicle-publish/vehicle-publish.component'; //add form module
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { VehiclePublishComponent } from './components/vehicle-publish/vehicle-pu
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule //add form module
+    FormsModule, //add form module
+    HttpClientModule , //connect with api
   ],
   providers: [],
   bootstrap: [AppComponent]
