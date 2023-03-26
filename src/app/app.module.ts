@@ -7,7 +7,9 @@ import { NavbarComponent } from './System/navbar/navbar.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms'; //add form module
+import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './System/footer/footer.component';
+import { VehiclePublishComponent } from './components/vehicle-publish/vehicle-publish.component'; //add form module
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { FormsModule } from '@angular/forms'; //add form module
     NavbarComponent,
     SignupComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    FooterComponent,
+    VehiclePublishComponent
   ],
   imports: [
     BrowserModule,
