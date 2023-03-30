@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { userDetails } from 'src/app/Models/userDetails'; //Import the model
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { userDetails } from 'src/app/Models/userDetails'; //Import the data model
 import { SignupService } from 'src/app/Services/SignUp/signup.service'; //Import the service
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';//notificaton
+//import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'; //ngx-model
 
 @Component({
   selector: 'app-signup',
@@ -24,57 +27,35 @@ export class SignupComponent implements OnInit {
   confirmpassword: string='';
 
   userDetails?: userDetails; //Define userDetails Array
- 
 
-  constructor( private signupService : SignupService) { }
+  modalRef?: BsModalRef; //ngx-model
+
+  constructor( 
+    private signupService : SignupService,
+    private toastr: ToastrService, //Notification Service
+    private modalService: BsModalService, //ngx-model
+    ) { }
 
   ngOnInit(): void {
-    // this.userDetails = this.signupService.getUsers();
-    // console.log(this.userDetails);
 
     this.signupService
     .getUsers().subscribe(
       (serverdata : any[]) => {
         debugger;
          console.log(serverdata[0]); 
-        // if(serverdata != null){
-        //   this.fname = serverdata[0].firstName;
-        //   this.lname = serverdata[0].lastName;
-        //   this.email = serverdata[0].email
-        //   this.nicpp = serverdata[0].nic;
-        //   this.phonenumber = serverdata[0].phoneNo;
-        //   this.gpsLocation = serverdata[0].location;
-        //   this.city = serverdata[0].city;
-        //   this.occupation = serverdata[0].occupation;
-        // }
       }
-
       
     );
-    
-
-    // this.signupService.getUsers().subscribe(
-    //   (userDetails : userDetails[]) => {
-    //       debugger;
-    //       return userDetails;
-    //   }
-    // );
-
   }
 
-  onSubmit() {
-    // Handle form submission here
-    // console.log(this.fname);
-    // alert("EMAIL : " + this.email );
-    // alert("PASSWORD : " + this.password );
-    // alert("FIRSTNAME : " + this.fname );
-    // alert("Output : " + this.lname );
-    //  alert("PHONENO : " + this.phonenumber );
-    //  alert("LOCATION : " + this.gpsLocation);
-    //  alert("LOCATION : " + this.city);
-    //  alert("LOCATION : " + this.nicpp);
-    //   alert("LOCATION : " + this.occupation);
-    //  alert("CONFIRMPASSWORD : " + this.confirmpassword);
+  onSubmit(template: TemplateRef<any>) {
+
+   // this.toastr.success('Hello, world!', 'Toastr fun!');//Show notification 
+
+   // this.showSuccess('All done','Done');//show nptification
+
+   //this.modalRef = this.modalService.show(template); //open a model
+
     this.userDetails = {
         Id : '' ,   
         FirstName:  this.fname,
@@ -89,42 +70,78 @@ export class SignupComponent implements OnInit {
         Password : this.password
     }
    
-    console.log(this.phonenumber);
+    //console.log(this.phonenumber);
 
+    if(this.confirmpassword == this.userDetails?.Password){
     this.signupService
     .InsertUserDetailRecordMongo(this.userDetails)
     .subscribe(userDetails => {
       debugger;
       console.log(this.userDetails);
       console.log(this.userDetails?.Password);
-      if(this.confirmpassword == this.userDetails?.Password){
-        alert("Password Set Sucessfully");
-        
-          this.fname='' ;
-          this.lname='';
-          this.email ='';
-          this.phonenumber= ''; 
-          this. gpsLocation='';
-          this.city='';
-          this.nicpp='';
-          this.occupation='';
-          this.password='';
-          this.confirmpassword='';
-          
+  
+  
+        }
+    );
+
+    this.fname='' ;
+    this.lname='';
+    this.email ='';
+    this.phonenumber= ''; 
+    this. gpsLocation='';
+    this.city='';
+    this.nicpp='';
+    this.occupation='';
+    this.password='';
+    this.confirmpassword='';
+    this.showSuccess('All done','Done');
       }
       else{
-        alert("Password not maching")
-      }
-
-
-    });
+        this.showError('Passowrds are not match' , 'Password');
+      } 
+    }
 
 
 
-  }
+  
 
   uploadImage(){
     alert('image')
   }
+
+
+  // Toster Service notification Desings - start
+  showSuccess(body : string , header : string) {
+    this.toastr.success(body,header, {
+      timeOut: 3000,
+      progressBar: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+
+  showError(body : string , header : string) {
+    this.toastr.error(body,header, {
+      timeOut: 3000,
+      progressBar: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+
+  showWarning(body : string , header : string) {
+    this.toastr.warning(body,header, {
+      timeOut: 3000,
+      progressBar: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+
+  showInfo(body : string , header : string) {
+    this.toastr.info(body,header, {
+      timeOut: 3000,
+      progressBar: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+// Toster Service notification Desings - End
 
 }
