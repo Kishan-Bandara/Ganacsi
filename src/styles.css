@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /* import boostrap to project */
 @import "~bootstrap/dist/css/bootstrap.css";
+/* toster */
+@import '~ngx-toastr/toastr.css';
 
 body {
     font-family: 'Roboto', sans-serif;
