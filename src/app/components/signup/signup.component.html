@@ -13,7 +13,7 @@
                             <h4 class="text-center text-black">Sign Up</h4>
                         </div>
                         <div class="card-body">
-                            <form (submit)="onSubmit()">
+                            <form (submit)="onSubmit(this.template)">
                                 <div class="form-group ">
                                     <label for="fname">First Name</label>
                                     <input type="fname"  name="fname" [(ngModel)]="fname" class="form-control firstcolor" id="fname" aria-describedby="fnameHelp" placeholder="Enter First Name">
@@ -27,12 +27,12 @@
 
                                 <div class="form-group">
                                     <label for="email">Email address</label>
-                                    <input type="email"  name="email" [(ngModel)]="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <input type="email"  name="email" [(ngModel)]="email" class="form-control" id="email" placeholder="Enter email">
                                     <small id="emailHelp" class="form-text text-muted">Enter Your Email Address .</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="phonenumber">Phone Number</label>
-                                    <input type="number" name="phonenumber" [(ngModel)]="phonenumber"  class="form-control" id="phonenumber" aria-describedby="phoneNumberHelp" placeholder="Enter your Phone number">
+                                    <input type="phonenumber" name="phonenumber" [(ngModel)]="phonenumber"  class="form-control" id="phonenumber" aria-describedby="phoneNumberHelp" placeholder="Enter your Phone number">
                                     <small id="phoneNumberHelp" class="form-text text-muted">Enter Your Phone Number</small>
                                 </div>
                                 <div class="form-group">
@@ -114,8 +114,24 @@
 
 
 <!-- <p>login works!</p> -->
-
-
+<ng-template #template >
+    <div class="withd">
+     <div class="modal-header">
+        <h4 class="modal-title pull-left">Confirmation Message!</h4>
+        <button type="button" class="close pull-right" aria-label="Close" >
+           <span aria-hidden="true" (click)="modalRef?.hide()">×</span>
+        </button>
+     </div>
+     <div class="modal-body">
+      Select the required Serial Numbers of the marked item before 'Create'.
+      Click 'Ok' to proceed Or 'No' to cancel
+     </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modalRef?.hide()" >OK</button> <!--Need to change this-->
+        <button type="button" class="btn btn-danger nav-button-left"  >No</button>
+     </div>
+    </div>
+  </ng-template>
 
 
 
