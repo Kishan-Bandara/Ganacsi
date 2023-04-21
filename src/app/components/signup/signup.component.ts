@@ -25,6 +25,7 @@ export class SignupComponent implements OnInit {
   occupation: string='';
   password: string='';
   confirmpassword: string='';
+  VallidateEmail? : boolean;
 
   userDetails?: userDetails; //Define userDetails Array
 
@@ -42,7 +43,7 @@ export class SignupComponent implements OnInit {
     .getUsers().subscribe(
       (serverdata : any[]) => {
         debugger;
-         console.log(serverdata[0]); 
+        // console.log(serverdata[0]); 
       }
       
     );
@@ -70,15 +71,30 @@ export class SignupComponent implements OnInit {
         Password : this.password
     }
    
-    //console.log(this.phonenumber);
+//  console.log(this.userDetails?.Password );
 
-    if(this.confirmpassword == this.userDetails?.Password){
+  this.VallidateEmail = this.validateEmail(this.userDetails?.Email);
+
+  //console.log(this.VallidateEmail);
+
+
+
+    if((this.confirmpassword == this.userDetails?.Password) 
+    && (this.userDetails?.Password != '')
+    && (this.userDetails?.FirstName != '')
+    &&(this.userDetails?.LastName !='')
+    &&(this.userDetails?.Email !='')
+    &&(this.userDetails?.PhoneNo !='')
+    &&(this.userDetails?.City !='')
+    &&(this.userDetails?.Nic !='')
+    &&(this.VallidateEmail == true)
+    ){
     this.signupService
     .InsertUserDetailRecordMongo(this.userDetails)
     .subscribe(userDetails => {
       debugger;
-      console.log(this.userDetails);
-      console.log(this.userDetails?.Password);
+      // console.log(this.userDetails);
+      // console.log(this.userDetails?.Password);
   
   
         }
@@ -97,7 +113,58 @@ export class SignupComponent implements OnInit {
     this.showSuccess('All done','Done');
       }
       else{
-        this.showError('Passowrds are not match' , 'Password');
+        console.log(this.confirmpassword);
+        console.log(this.userDetails?.Password);
+
+        if(this.userDetails?.FirstName == '')
+        {
+          this.showError('First name should not be empty' , 'First Name');
+        }
+        else if
+        (this.userDetails?.LastName == '')
+        { 
+          this.showError('Last name should not be empty' , 'Last Name');
+        }
+        else if
+        (this.userDetails?.Email == '')
+        { 
+          this.showError('Email should not be empty' , 'Email');
+        }
+        else if
+        (this.userDetails?.PhoneNo == '')
+        { 
+          this.showError('Phone Number should not be empty' , 'Phone Number');
+        }
+        else if
+        (this.userDetails?.City == '')
+        { 
+          this.showError('City should not be empty' , 'City');
+        }
+        else if
+        (this.userDetails?.Nic == '')
+        { 
+          this.showError('Nic should not be empty' , 'NIC');
+        }
+        else if
+        (this.userDetails?.Password == '')
+        { 
+          this.showError('Passowrds empty' , 'Password');
+        }
+        else if
+        (this.confirmpassword == '')
+        { 
+          this.showError('Confirm Passowrd empty' , 'Password');
+        }
+        else if
+        (this.VallidateEmail == false)
+        { 
+          this.showError('Email not correct' , 'Email wrong');
+        }
+        else if
+        (this.confirmpassword != this.userDetails?.Password)
+        { 
+          this.showError('Passowrds are not match' , 'Password');
+        }
       } 
     }
 
@@ -143,5 +210,14 @@ export class SignupComponent implements OnInit {
     });
   }
 // Toster Service notification Desings - End
+
+//Email Validation
+validateEmail(email: string): boolean {
+  debugger;
+  const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  //this.showError('Email' , 'Email Not Correct');
+  //console.log(emailRegex.test(email));
+  return emailRegex.test(email);
+}
 
 }
