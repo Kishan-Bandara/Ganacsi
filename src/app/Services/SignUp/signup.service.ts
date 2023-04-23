@@ -51,5 +51,28 @@ export class SignupService {
         );
     }
 
+    //Search User with Email
+    public GetByEmailUserDetailRecordMongo(Email:string){
+      return this.http.get(
+        this.REST_API_SERVER +
+        'SignUp/GetByEmailUserDetailRecordMongo?Email=' +
+        Email 
+      );
+    }
+
+    //Upload Image
+    // UploadImage (file: string): Observable<userDetails> {
+    //   debugger;
+    //   return this.http.post<userDetails>(this.REST_API_SERVER +"SignUp/InsertUserDetailRecordMongo",
+    //   userDetails, httpOptions).pipe(
+    //      // catchError(this.handleError('InsertStockToStockMultipleTransferHeaderRecode', headerRecode))
+    //     );
+
+    //     this.http.post(this.REST_API_SERVER +"SignUp/InsertUserDetailRecordMongo" file).subscribe(
+    //       (response) => console.log('Image uploaded successfully'),
+    //       (error) => console.error(error)
+    //     );
+
+    // }
 
 }

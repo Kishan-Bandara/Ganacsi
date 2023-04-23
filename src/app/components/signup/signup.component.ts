@@ -51,12 +51,6 @@ export class SignupComponent implements OnInit {
 
   onSubmit(template: TemplateRef<any>) {
 
-   // this.toastr.success('Hello, world!', 'Toastr fun!');//Show notification 
-
-   // this.showSuccess('All done','Done');//show nptification
-
-   //this.modalRef = this.modalService.show(template); //open a model
-
     this.userDetails = {
         Id : '' ,   
         FirstName:  this.fname,
@@ -70,102 +64,113 @@ export class SignupComponent implements OnInit {
         Occupation : this.occupation,
         Password : this.password
     }
-   
-//  console.log(this.userDetails?.Password );
 
   this.VallidateEmail = this.validateEmail(this.userDetails?.Email);
 
   //console.log(this.VallidateEmail);
 
-
-
-    if((this.confirmpassword == this.userDetails?.Password) 
-    && (this.userDetails?.Password != '')
-    && (this.userDetails?.FirstName != '')
-    &&(this.userDetails?.LastName !='')
-    &&(this.userDetails?.Email !='')
-    &&(this.userDetails?.PhoneNo !='')
-    &&(this.userDetails?.City !='')
-    &&(this.userDetails?.Nic !='')
-    &&(this.VallidateEmail == true)
-    ){
-    this.signupService
-    .InsertUserDetailRecordMongo(this.userDetails)
-    .subscribe(userDetails => {
+//Find Email Exist or not
+  this.signupService.GetByEmailUserDetailRecordMongo(this.userDetails?.Email)
+    .subscribe((userDetails) => {
       debugger;
-      // console.log(this.userDetails);
-      // console.log(this.userDetails?.Password);
-  
-  
-        }
-    );
-
-    this.fname='' ;
-    this.lname='';
-    this.email ='';
-    this.phonenumber= ''; 
-    this. gpsLocation='';
-    this.city='';
-    this.nicpp='';
-    this.occupation='';
-    this.password='';
-    this.confirmpassword='';
-    this.showSuccess('All done','Done');
+      if(userDetails != null){      
+        this.showError('Email is exixting' , 'Email Exist');
       }
       else{
-        console.log(this.confirmpassword);
-        console.log(this.userDetails?.Password);
-
-        if(this.userDetails?.FirstName == '')
+        this.showSuccess('Email is not exixting' , 'Email Not Exist');
+ 
+        if((this.confirmpassword == this.userDetails?.Password) 
+        && (this.userDetails?.Password != '')
+        && (this.userDetails?.FirstName != '')
+        &&(this.userDetails?.LastName !='')
+        &&(this.userDetails?.Email !='')
+        &&(this.userDetails?.PhoneNo !='')
+        &&(this.userDetails?.City !='')
+        &&(this.userDetails?.Nic !='')
+        &&(this.VallidateEmail == true)
+        )
         {
-          this.showError('First name should not be empty' , 'First Name');
+        this.signupService
+        .InsertUserDetailRecordMongo(this.userDetails)
+        .subscribe(userDetails => {
+          debugger;
+          console.log(this.userDetails);
+          // console.log(this.userDetails?.Password);
+      
+      
+            }
+        );
+
+        this.fname='' ;
+        this.lname='';
+        this.email ='';
+        this.phonenumber= ''; 
+        this. gpsLocation='';
+        this.city='';
+        this.nicpp='';
+        this.occupation='';
+        this.password='';
+        this.confirmpassword='';
+        this.showSuccess('All done','Done');
         }
-        else if
-        (this.userDetails?.LastName == '')
-        { 
-          this.showError('Last name should not be empty' , 'Last Name');
+
+          else{
+            console.log(this.confirmpassword);
+            console.log(this.userDetails?.Password);
+
+            if(this.userDetails?.FirstName == '')
+            {
+              this.showError('First name should not be empty' , 'First Name');
+            }
+            else if
+            (this.userDetails?.LastName == '')
+            { 
+              this.showError('Last name should not be empty' , 'Last Name');
+            }
+            else if
+            (this.userDetails?.Email == '')
+            { 
+              this.showError('Email should not be empty' , 'Email');
+            }
+            else if
+            (this.userDetails?.PhoneNo == '')
+            { 
+              this.showError('Phone Number should not be empty' , 'Phone Number');
+            }
+            else if
+            (this.userDetails?.City == '')
+            { 
+              this.showError('City should not be empty' , 'City');
+            }
+            else if
+            (this.userDetails?.Nic == '')
+            { 
+              this.showError('Nic should not be empty' , 'NIC');
+            }
+            else if
+            (this.userDetails?.Password == '')
+            { 
+              this.showError('Passowrds empty' , 'Password');
+            }
+            else if
+            (this.confirmpassword == '')
+            { 
+              this.showError('Confirm Passowrd empty' , 'Password');
+            }
+            else if
+            (this.VallidateEmail == false)
+            { 
+              this.showError('Email not correct' , 'Email wrong');
+            }
+            else if
+            (this.confirmpassword != this.userDetails?.Password)
+            { 
+              this.showError('Passowrds are not match' , 'Password');
+            }
+          } 
+
         }
-        else if
-        (this.userDetails?.Email == '')
-        { 
-          this.showError('Email should not be empty' , 'Email');
-        }
-        else if
-        (this.userDetails?.PhoneNo == '')
-        { 
-          this.showError('Phone Number should not be empty' , 'Phone Number');
-        }
-        else if
-        (this.userDetails?.City == '')
-        { 
-          this.showError('City should not be empty' , 'City');
-        }
-        else if
-        (this.userDetails?.Nic == '')
-        { 
-          this.showError('Nic should not be empty' , 'NIC');
-        }
-        else if
-        (this.userDetails?.Password == '')
-        { 
-          this.showError('Passowrds empty' , 'Password');
-        }
-        else if
-        (this.confirmpassword == '')
-        { 
-          this.showError('Confirm Passowrd empty' , 'Password');
-        }
-        else if
-        (this.VallidateEmail == false)
-        { 
-          this.showError('Email not correct' , 'Email wrong');
-        }
-        else if
-        (this.confirmpassword != this.userDetails?.Password)
-        { 
-          this.showError('Passowrds are not match' , 'Password');
-        }
-      } 
+      });
     }
 
 
@@ -219,5 +224,15 @@ validateEmail(email: string): boolean {
   //console.log(emailRegex.test(email));
   return emailRegex.test(email);
 }
+
+//Upload Image
+// onFileSelected(event : any) {
+//   const file: File = event.target.files[0];
+
+//   this.signupService.UploadImage(this.userDetails?.ProfilePicture)
+//   .subscribe((userDetails) => {}
+//   )
+ 
+// }
 
 }
