@@ -26,6 +26,9 @@ export class SignupComponent implements OnInit {
   password: string='';
   confirmpassword: string='';
   VallidateEmail? : boolean;
+  selectedFile: File | null = null;
+  folderPath?: string;
+  profilePicture: string = '';
 
   userDetails?: userDetails; //Define userDetails Array
 
@@ -59,7 +62,7 @@ export class SignupComponent implements OnInit {
         PhoneNo : this.phonenumber,
         Location : this.gpsLocation,
         City : this.city,
-        ProfilePicture : '',
+        ProfilePicture : this.profilePicture,
         Nic : this.nicpp,
         Occupation : this.occupation,
         Password : this.password
@@ -111,6 +114,7 @@ export class SignupComponent implements OnInit {
         this.occupation='';
         this.password='';
         this.confirmpassword='';
+        this.profilePicture='';
         this.showSuccess('All done','Done');
         }
 
@@ -175,13 +179,6 @@ export class SignupComponent implements OnInit {
 
 
 
-  
-
-  uploadImage(){
-    alert('image')
-  }
-
-
   // Toster Service notification Desings - start
   showSuccess(body : string , header : string) {
     this.toastr.success(body,header, {
@@ -226,13 +223,28 @@ validateEmail(email: string): boolean {
 }
 
 //Upload Image
-// onFileSelected(event : any) {
-//   const file: File = event.target.files[0];
+selectFile(): void {
+  // debugger;
+  // const fileInputElement = document.getElementById('fileInput');
+  // if (fileInputElement) {
+  //   fileInputElement.click();
+  // }
+}
 
-//   this.signupService.UploadImage(this.userDetails?.ProfilePicture)
-//   .subscribe((userDetails) => {}
-//   )
- 
-// }
+onFileSelected(event : any): void {
+debugger;
+  const file: File = event.target.files[0];
+  const formData: FormData = new FormData();
+  formData.append('file', file, file.name);
+
+  this.signupService.ImageSaveToFolder(formData)
+  .subscribe((response: any) =>{
+    //console.log(response);
+    this.profilePicture = response.filename + '.jpg';
+    console.log(this.profilePicture +'.jpg' );
+    });
+   
+}
+
 
 }
