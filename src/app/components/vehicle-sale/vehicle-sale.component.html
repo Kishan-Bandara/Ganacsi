@@ -1,0 +1,136 @@
+<div class="row ">
+    <div class="col-sm-1 pt-3 bg-primary text-white"></div>
+        <div class="col-sm-10 pt-2 bg-secondary text-white">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Vehicle Advertisement</h4>
+                            <div class="card-body">
+
+
+                                    <!-- <div class="form-group ">
+                                        <label for="make">Vehicle Brand</label>
+                                        <ng-select id="brand-select"
+                                            [items]="brands"
+                                            bindLabel="name"
+                                            bindValue="id"
+                                            [(ngModel)]="selectedBrand"
+                                            placeholder="Select a brand">
+                                         </ng-select>
+                                    </div> -->
+
+
+                                <form (submit)="onSubmit()">
+
+
+                                    <!-- drop-down -->
+                                    <div class="form-group">
+                                        <label for="vehiclebrand">Brand</label>
+                                        <select class="form-control select-search" type="brandname"  name="brandname" [(ngModel)]="brandname" class="form-control" id="brandname" data-live-search="true" >
+                                          <option value="" selected>Select</option>
+                                          <option *ngFor="let brand of brandOptions" [value]="brand.value">{{brand.label}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="vehiclemodel">Model</label>
+                                        <select class="form-control select-search" type="vehiclemodel"  name="vehiclemodel" [(ngModel)]="vehiclemodel" class="form-control" id="vehiclemodel" data-live-search="true" >
+                                          <option value="" selected>Select</option>
+                                          <option *ngFor="let model of modelOptions" [value]="model.value">{{model.label}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="vehiclesubcategory">Sub Category</label>
+                                        <select class="form-control select-search" type="vehiclesubcategory"  name="vehiclesubcategory" [(ngModel)]="vehiclesubcategory" class="form-control" id="vehiclesubcategory" data-live-search="true" >
+                                          <option value="" selected>Select</option>
+                                          <option *ngFor="let subcategory of subcategoryOptions" [value]="subcategory.value">{{subcategory.label}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="vehiclecondition">Condition</label>
+                                        <select class="form-control select-search" type="vehiclecondition"  name="vehiclecondition" [(ngModel)]="vehiclecondition" class="form-control" id="vehiclecondition" data-live-search="true" >
+                                          <option value="" selected>Select</option>
+                                          <option *ngFor="let condition of conditionOptions" [value]="condition.value">{{condition.label}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="manufacture">Manufacture</label>
+                                        <input type="manufacture"  name="manufascture" class="form-control firstcolor" id="manufacture" aria-describedby="Help" placeholder="manufacture year">
+                                        <small id="Help" class="form-text text-muted">manufacture year</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="mileage">Mileage:</label>
+                                        <input type="mileage"  name="mileage" class="form-control firstcolor" id="mileage" aria-describedby="mileageHelp" placeholder="Vehicle Mileage">
+                                        <small id="mileageHelp" class="form-text text-muted">Vehicle Mileage</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="enginecapacity">Engine Capacity</label>
+                                        <input type="enginecapacity"  name="enginecapacity" class="form-control firstcolor" id="enginecapacity" aria-describedby="Help" placeholder="Engine Capacity">
+                                        <small id="enginecapacityHelp" class="form-text text-muted">CC</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="transmission">Transmissition</label>
+                                        <input type="transmission"  name="transmission" class="form-control firstcolor" id="transmission" aria-describedby="transmissionHelp" placeholder="Transmissition">
+                                        <small id="transmissionHelp" class="form-text text-muted">Auto/Manual</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="fueltype">Fuel Type</label>
+                                        <input type="fueltype"  name="fueltype" class="form-control firstcolor" id="fueltype" aria-describedby="fueltypeHelp" placeholder="Fuel Type">
+                                        <small id="fueltypeHelp" class="form-text text-muted">Fuel</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="price">Price</label>
+                                        <input type="price" name="price" class="form-control firstcolor" id="price" aria-describedby="priceHelp" placeholder="Vehicle Price">
+                                        <small id="priceHelp" class="form-text text-muted">Vehicle sale price</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="description">Description</label>
+                                        <input type="description" name="description" class="form-control firstcolor" id="description" aria-describedby="priceHelp" placeholder="Vehicle Description">
+                                        <small id="descriptionHelp" class="form-text text-muted">Vehicle Description</small>
+                                    </div>
+
+                                    
+                                    <div class="form-group ">
+                                        <label for="location">Location:</label>
+                                        <input type="location" name="location" [(ngModel)]="locationpublish" class="form-control firstcolor" id="location" aria-describedby="locationHelp" placeholder="Vehicle Location">
+                                        <small id="locationHelp" class="form-text text-muted">Where can see the vehicle</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="contact">Contact No</label>
+                                        <input type="contact" name="contact"  [(ngModel)]="contact" class="form-control firstcolor" id="contact" aria-describedby="contactHelp" placeholder="Contact No">
+                                        <small id="contactHelp" class="form-text text-muted">For get more details</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="image">Image:</label>
+                                        <input type="file" id="image" name="image">
+                                    </div>
+
+                                    <div class="form-group pt-3">
+                                        <button type="button"  type="submit" class="btn btn-primary mx-auto d-block">Sign </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+</div>
+
