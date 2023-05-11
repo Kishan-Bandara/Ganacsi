@@ -18,29 +18,20 @@ const httpOptions = {
 })
 export class SignupService {
 
+
+  folderPath?: string;
+
   private url = "SignUp";
 
   private REST_API_SERVER = environment.apiUrl; //To initiate apiURL
 
   constructor(private http : HttpClient) { }
 
-  // public getUsers() {
-  // debugger;
-  //   return  this.http.get(this.REST_API_SERVER + "SignUp");
-  // }
-
   public getUsers() : Observable<userDetails[]>{
     debugger;
       //return  this.http.get<userDetails[]>(`${environment.apiUrl}/${this.url}`);
       return  this.http.get<userDetails[]>(this.REST_API_SERVER + "SignUp");
     }
-
-  // public createUser(userDetails : userDetails){
-  //   return this.http.post(this.REST_API_SERVER + "SignUp",
-  //   userDetails, httpOptions).pipe(
-  //     // catchError(this.handleError('InsertStockToStockMultipleTransferHeaderRecode', headerRecode))
-  //    );
-  // }
 
     /** POST: add a new User Detai to the database */
     InsertUserDetailRecordMongo (userDetails: userDetails): Observable<userDetails> {
@@ -60,19 +51,25 @@ export class SignupService {
       );
     }
 
-    //Upload Image
-    // UploadImage (file: string): Observable<userDetails> {
-    //   debugger;
-    //   return this.http.post<userDetails>(this.REST_API_SERVER +"SignUp/InsertUserDetailRecordMongo",
-    //   userDetails, httpOptions).pipe(
-    //      // catchError(this.handleError('InsertStockToStockMultipleTransferHeaderRecode', headerRecode))
-    //     );
+    //Save Image in folder
+    ImageSaveToFolder(formData : any){
+      return this.http.post(this.REST_API_SERVER + "SignUp/ImageSaveToFolder", formData)
+    }
 
-    //     this.http.post(this.REST_API_SERVER +"SignUp/InsertUserDetailRecordMongo" file).subscribe(
-    //       (response) => console.log('Image uploaded successfully'),
-    //       (error) => console.error(error)
-    //     );
+    uploadFile(filePath: string): Observable<any> {
+      const formData = new FormData();
+      formData.append('filePath', filePath);
+      console.log(formData);
+      return this.http.post(
+        this.REST_API_SERVER +
+        'SignUp/upload' ,
+        formData 
+      );
+    }
 
-    // }
+    //Get folder path
+    getFolderPath(folderName: string) {
+      return this.http.get<string>( this.REST_API_SERVER +'/api/folder/path')
+    }
 
 }
