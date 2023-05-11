@@ -17,7 +17,10 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons'; //ngx-boostrap
 import { AlertModule } from 'ngx-bootstrap/alert'; //ngx-boostrap
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';//ngx-boostrap
 import { TooltipModule } from 'ngx-bootstrap/tooltip';//ngx-boostrap
-import { ModalModule } from 'ngx-bootstrap/modal';//ngx-boostrap
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { SaleComponent } from './components/sale/sale.component';
+import { RentComponent } from './components/rent/rent.component';
+import { VehicleSaleComponent } from './components/vehicle-sale/vehicle-sale.component';//ngx-boostrap
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';//ngx-boostrap
     HomeComponent,
     LoginComponent,
     FooterComponent,
-    VehiclePublishComponent
+    VehiclePublishComponent,
+    SaleComponent,
+    RentComponent,
+    VehicleSaleComponent
   ],
   imports: [
     BrowserModule,
